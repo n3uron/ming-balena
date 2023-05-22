@@ -1,0 +1,61 @@
+version: '2'
+
+services:
+  n3uron:
+    image: n3uronhub/n3uron:v1.21.4
+    ports:
+      - 8003:8003
+    volumes:
+      - n3_config:/opt/n3uron/config
+      - n3_data:/opt/n3uron/data
+      - n3_licenses:/opt/n3uron/licenses
+      - n3_log:/opt/n3uron/log
+    restart: always
+
+  hivemq:
+    image: eclipse-mosquitto:1.6
+    ports:
+      - 1883:1883
+    restart: always
+
+  telegraf:
+    image: telegraf:1.26
+    entrypoint: >
+      sh -c "echo '[[outputs.influxdb_v2]]\nurls = [\"http://influxdb:8086\"]\ntoken = \"$INFLUX_TOKEN\"\norganization = \"N3uron\"\nbucket = \"demo\"\n[[inputs.mqtt_consumer]]\nservers = [\"tcp://hivemq:1883\"]\ntopics = [\"N3URON/BLUELAKE/\"]\ndata_format = \"influx\"' >> /etc/telegraf/telegraf.conf && telegraf --config /etc/telegraf/telegraf.conf"
+    environment:
+      - INFLUX_TOKEN=iXm3eMP5ioUUntSZuHYWzjJPT
+    restart: always
+
+  influxdb:
+    image: influxdb:2.7
+    ports:
+      - 8086:8086
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=n3urondemo
+      - DOCKER_INFLUXDB_INIT_ORG=N3uron
+      - DOCKER_INFLUXDB_INIT_BUCKET=demo
+      - DOCKER_INFLUXDB_INIT_RETENTION=1w
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=iXm3eMP5ioUUntSZuHYWzjJPT
+    volumes:
+      - influx_config:/etc/influxdb2
+      - influx_data:/var/lib/influxdb2
+    restart: always
+
+  grafana:
+    image: grafana/grafana-oss:9.5.2
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    restart: always
+
+volumes:
+  n3_config:
+  n3_data:
+  n3_licenses:
+  n3_log:
+  influx_config:
+  influx_data:
+  grafana_data:

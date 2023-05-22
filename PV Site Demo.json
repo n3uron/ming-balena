@@ -1,0 +1,1870 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_INFLUXDB",
+      "label": "InfluxDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.4.7"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "panels": [],
+      "title": "Plant Overview",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 6000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 2000
+              }
+            ]
+          },
+          "unit": "kwatt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST001/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST001"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST002/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST002"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST003/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST003"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST004/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST004"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST005/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST005"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST006/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST006"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 1
+      },
+      "id": 30,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] == \"/BLUELAKE/PVG001/KPI/ACTIVE_POWER_TOTAL\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Active Power",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 300
+              }
+            ]
+          },
+          "unit": "Wm2"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 1
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] == \"/BLUELAKE/PVG001/KPI/POA_IRRADIANCE_5MIN_AVG\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")",
+          "refId": "A"
+        }
+      ],
+      "title": "POA Irradiance",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST001/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST001"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST002/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST002"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST003/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST003"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST004/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST004"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST005/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST005"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST006/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST006"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 1
+      },
+      "id": 31,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] == \"/BLUELAKE/PVG001/KPI/PERFORMANCE_RATIO\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Performance Ratio (%)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 15,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "kwatt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#73BF69",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/KPI/POA_IRRADIANCE_5MIN_AVG"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "Wm2"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Active Power"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/KPI/POA_IRRADIANCE_5MIN_AVG"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "POA Irradiance"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] == \"/BLUELAKE/PVG001/KPI/ACTIVE_POWER_TOTAL\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] == \"/BLUELAKE/PVG001/KPI/POA_IRRADIANCE_5MIN_AVG\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "B"
+        }
+      ],
+      "title": "Active Power / POA Irradiance",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 16,
+      "panels": [],
+      "title": "Insights | Power",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 300
+              }
+            ]
+          },
+          "unit": "kwatt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST001/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST001"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST002/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST002"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST003/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST003"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST004/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST004"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST005/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST005"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST006/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST006"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 23,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] =~ /.*PST00[1-6].*ACTIVE_POWER_TOTAL/)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Active Power (kW)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "kwatt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST001/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST001"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST002/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST002"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST003/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST003"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST004/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST004"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST005/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST005"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST006/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST006"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 17,
+        "x": 0,
+        "y": 25
+      },
+      "id": 29,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] =~ /.*PST00[1-6].*ACTIVE_POWER_TOTAL/)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Active Power (kW)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "kwatt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST001/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST001"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST002/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST002"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST003/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST003"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST004/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST004"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST005/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST005"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST006/KPI/ACTIVE_POWER_TOTAL"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST006"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 7,
+        "x": 17,
+        "y": 25
+      },
+      "id": 24,
+      "options": {
+        "displayLabels": [
+          "name",
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] =~ /.*PST00[1-6].*ACTIVE_POWER_TOTAL/)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Active Power Distribution (%)",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Wm2"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST001/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST001"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST002/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST002"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST003/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST003"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST004/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PLST004"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST005/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST005"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST006/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST006"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 17,
+        "x": 0,
+        "y": 37
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] =~ /.*PST00[1-6].*POA IRRADIANCE/)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "A"
+        }
+      ],
+      "title": "POA Irradiance (W/m2)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "kwatt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST001/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST001"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST003/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST003"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST004/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST004"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST005/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST005"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST006/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST006"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST002/WST001/POA IRRADIANCE"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST002"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 7,
+        "x": 17,
+        "y": 37
+      },
+      "id": 28,
+      "options": {
+        "displayLabels": [
+          "name",
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] =~ /.*PST00[1-6].*POA IRRADIANCE/)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "A"
+        }
+      ],
+      "title": "POA Irradiance Distribution (%)",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "hertz"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 48
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] =~ /.*PST00[1-6].*FREQUENCY/)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "B"
+        }
+      ],
+      "title": "Frequency (Hz)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 48
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] =~ /.*PST00[1-6].*VOLTAGE/)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "B"
+        }
+      ],
+      "title": "Voltage (V)",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 58
+      },
+      "id": 27,
+      "panels": [],
+      "title": "Insights | Performance",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST001/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST001"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST002/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST002"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST003/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST003"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST004/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST004"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST005/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST005"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST006/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST006"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 59
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] =~ /.*PST00[1-6].*PERFORMANCE_RATIO/)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Performance Ratio (%)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST001/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST001"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST002/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST002"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST003/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST003"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST004/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST004"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST005/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST005"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value /BLUELAKE/PVG001/PST006/KPI/PERFORMANCE_RATIO"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PST006"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 66
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"N3uron\")\r\n  |> filter(fn: (r) => r[\"Tag\"] =~ /.*PST00[1-6].*PERFORMANCE_RATIO/)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> drop(fn: (column) => column == \"host\")\r\n  |> drop(fn: (column) => column == \"topic\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Performance Ratio (%)",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "1m",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "demo",
+          "value": "demo"
+        },
+        "hide": 0,
+        "label": "Bucket Name",
+        "name": "bucket",
+        "options": [
+          {
+            "selected": true,
+            "text": "demo",
+            "value": "demo"
+          }
+        ],
+        "query": "demo",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "PV Site Demo",
+  "uid": "gYbqg_-Vk",
+  "version": 46,
+  "weekStart": ""
+}
