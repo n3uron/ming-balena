@@ -12,7 +12,7 @@ services:
       - n3_log:/opt/n3uron/log
     restart: always
 
-  hivemq:
+  mqtt:
     image: eclipse-mosquitto:1.6
     ports:
       - 1883:1883
@@ -21,7 +21,7 @@ services:
   telegraf:
     image: telegraf:1.26
     entrypoint: >
-      sh -c "echo '[[outputs.influxdb_v2]]\nurls = [\"http://influxdb:8086\"]\ntoken = \"$INFLUX_TOKEN\"\norganization = \"N3uron\"\nbucket = \"demo\"\n[[inputs.mqtt_consumer]]\nservers = [\"tcp://hivemq:1883\"]\ntopics = [\"N3URON/BLUELAKE/\"]\ndata_format = \"influx\"' >> /etc/telegraf/telegraf.conf && telegraf --config /etc/telegraf/telegraf.conf"
+      sh -c "echo '[[outputs.influxdb_v2]]\nurls = [\"http://influxdb:8086\"]\ntoken = \"$INFLUX_TOKEN\"\norganization = \"N3uron\"\nbucket = \"demo\"\n[[inputs.mqtt_consumer]]\nservers = [\"tcp://mqtt:1883\"]\ntopics = [\"N3URON/BLUELAKE/\"]\ndata_format = \"influx\"' >> /etc/telegraf/telegraf.conf && telegraf --config /etc/telegraf/telegraf.conf"
     environment:
       - INFLUX_TOKEN=iXm3eMP5ioUUntSZuHYWzjJPT
     restart: always
@@ -47,6 +47,9 @@ services:
     image: grafana/grafana-oss:9.5.2
     ports:
       - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=n3uron
     volumes:
       - grafana_data:/var/lib/grafana
     restart: always
