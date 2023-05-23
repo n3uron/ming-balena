@@ -16,6 +16,10 @@ post-provisioning: >-
 
   * Grafana is an open-source platform for data visualization and monitoring that allows users to create, explore, and share dashboards and alerts for a wide range of data sources, including databases, APIs, and metrics.
 
+  ## About Us
+
+  At [N3uron](https://n3uron.com/) our mission is to design modern Industrial IoT software solutions to empower organizations to accomplish any data management project, whilst minimizing technological and financial obstacles.
+
 assets:
   repository:
     type: blob.asset
