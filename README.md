@@ -1,4 +1,4 @@
-# MING (MQTT, InfluxDB, N3uron, Grafana)
+# MING (MQTT, InfluxDB, N3uron, Grafana) on balena
 
 The MING stack is a popular combination of open-source technologies used for building scalable and real-time Industrial Industrial IoT data processing and visualization systems.
 
