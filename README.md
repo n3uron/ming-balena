@@ -7,6 +7,8 @@ The MING stack is a popular combination of open-source technologies used for bui
 * N3uron is an Industrial Edge Platform for DataOps that streamlines the flow of data between industrial devices and business applications, either on-premise or in the cloud.
 * Grafana is an open-source platform for data visualization and monitoring that allows users to create, explore, and share dashboards and alerts for a wide range of data sources, including databases, APIs, and metrics.
 
+[![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/n3uron/ming-balena)
+
 <!-- ## Provision VirtualBox VM
 
 See <https://blog.balena.io/no-hardware-use-virtualbox/>
