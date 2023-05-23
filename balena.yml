@@ -28,6 +28,14 @@ assets:
 data:
   applicationEnvironmentVariables:
     - HOSTNAME: gateway01
+    - DOCKER_INFLUXDB_INIT_USERNAME: admin
+    - DOCKER_INFLUXDB_INIT_PASSWORD: n3urondemo
+    - DOCKER_INFLUXDB_INIT_ORG: N3uron
+    - DOCKER_INFLUXDB_INIT_BUCKET: demo
+    - DOCKER_INFLUXDB_INIT_RETENTION: 1w
+    - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: iXm3eMP5ioUUntSZuHYWzjJPT
+    - GF_SECURITY_ADMIN_USER: admin
+    - GF_SECURITY_ADMIN_PASSWORD: n3uron
   defaultDeviceType: intel-nuc
   supportedDeviceTypes:
     - intel-nuc

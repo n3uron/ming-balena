@@ -21,9 +21,7 @@ services:
   telegraf:
     image: telegraf:1.26
     entrypoint: >
-      sh -c "echo '[[outputs.influxdb_v2]]\nurls = [\"http://influxdb:8086\"]\ntoken = \"$INFLUX_TOKEN\"\norganization = \"N3uron\"\nbucket = \"demo\"\n[[inputs.mqtt_consumer]]\nservers = [\"tcp://mqtt:1883\"]\ntopics = [\"N3URON/BLUELAKE/\"]\ndata_format = \"influx\"' >> /etc/telegraf/telegraf.conf && telegraf --config /etc/telegraf/telegraf.conf"
-    environment:
-      - INFLUX_TOKEN=iXm3eMP5ioUUntSZuHYWzjJPT
+      sh -c "echo '[[outputs.influxdb_v2]]\nurls = [\"http://influxdb:8086\"]\ntoken = \"$DOCKER_INFLUXDB_INIT_ADMIN_TOKEN\"\norganization = \"N3uron\"\nbucket = \"demo\"\n[[inputs.mqtt_consumer]]\nservers = [\"tcp://mqtt:1883\"]\ntopics = [\"N3URON/BLUELAKE/\"]\ndata_format = \"influx\"' >> /etc/telegraf/telegraf.conf && telegraf --config /etc/telegraf/telegraf.conf"
     restart: always
 
   influxdb:
@@ -32,12 +30,6 @@ services:
       - 8086:8086
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME=admin
-      - DOCKER_INFLUXDB_INIT_PASSWORD=n3urondemo
-      - DOCKER_INFLUXDB_INIT_ORG=N3uron
-      - DOCKER_INFLUXDB_INIT_BUCKET=demo
-      - DOCKER_INFLUXDB_INIT_RETENTION=1w
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=iXm3eMP5ioUUntSZuHYWzjJPT
     volumes:
       - influx_config:/etc/influxdb2
       - influx_data:/var/lib/influxdb2
@@ -47,9 +39,6 @@ services:
     image: grafana/grafana-oss:9.5.2
     ports:
       - 3000:3000
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=n3uron
     volumes:
       - grafana_data:/var/lib/grafana
     restart: always
