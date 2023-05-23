@@ -1,0 +1,36 @@
+name: MING
+type: sw.application
+
+description: >-
+  The MING stack is a popular combination of open-source technologies used for building scalable and real-time Industrial Industrial IoT data processing and visualization systems.
+
+post-provisioning: >-
+  * N3uron is an Industrial Edge Platform for DataOps that streamlines the flow of data between industrial devices
+  and business applications, either on-premise or in the cloud. N3uron provides an out-of-the-box solution for
+  data standardization, normalization and contextualization, seamless integration with industrial and IT systems,
+  efficient information management, and unparalleled scalability and security.
+
+  * MQTT is a lightweight messaging protocol designed for constrained devices and low-bandwidth, high-latency or unreliable networks, commonly used for IoT applications.
+
+  * InfluxDB is a scalable, high-performance, distributed, and fault-tolerant time-series database that is optimized for storing and querying large volumes of timestamped data.
+
+  * Grafana is an open-source platform for data visualization and monitoring that allows users to create, explore, and share dashboards and alerts for a wide range of data sources, including databases, APIs, and metrics.
+
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: https://github.com/n3uron/ming-balena
+  logo:
+    type: blob.asset
+    data:
+      url: https://raw.githubusercontent.com/n3uron/n3uron-balena/main/logo.png
+data:
+  applicationEnvironmentVariables:
+    - HOSTNAME: gateway01
+  defaultDeviceType: intel-nuc
+  supportedDeviceTypes:
+    - intel-nuc
+    - generic-amd64
+    - genericx86-64-ext
+version: 1.21.4
