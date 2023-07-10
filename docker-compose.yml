@@ -14,6 +14,8 @@ services:
       - n3_data:/opt/n3uron/data
       - n3_licenses:/opt/n3uron/licenses
       - n3_log:/opt/n3uron/log
+    cap_add:
+      - SYS_ADMIN
     restart: always
 
   mqtt:
@@ -23,7 +25,7 @@ services:
     restart: always
 
   telegraf:
-    image: telegraf:1.26
+    image: telegraf:1.27
     entrypoint: >
       sh -c "echo '[[outputs.influxdb_v2]]\nurls = [\"http://influxdb:8086\"]\ntoken = \"$DOCKER_INFLUXDB_INIT_ADMIN_TOKEN\"\norganization = \"N3uron\"\nbucket = \"demo\"\n[[inputs.mqtt_consumer]]\nservers = [\"tcp://mqtt:1883\"]\ntopics = [\"N3URON/BLUELAKE/\"]\ndata_format = \"influx\"' >> /etc/telegraf/telegraf.conf && telegraf --config /etc/telegraf/telegraf.conf"
     restart: always
@@ -40,7 +42,7 @@ services:
     restart: always
 
   grafana:
-    image: grafana/grafana-oss:9.5.2
+    image: grafana/grafana-oss:10.0.1
     ports:
       - 3000:3000
     volumes:
