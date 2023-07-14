@@ -16,6 +16,7 @@ services:
       - n3_log:/opt/n3uron/log
     cap_add:
       - SYS_ADMIN
+      - SYS_RAWIO
     restart: always
 
   mqtt:
