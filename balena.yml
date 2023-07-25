@@ -48,4 +48,4 @@ data:
     - raspberrypi4-64
     - raspberrypi400-64
     - generic-aarch64
-version: 1.21.4
+version: 1.21.5
