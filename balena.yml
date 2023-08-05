@@ -1,5 +1,6 @@
 name: MING
 type: sw.application
+version: 1.21.5
 
 description: >-
   The MING stack is a popular combination of software technologies used for building scalable and real-time Industrial IoT data processing and visualization systems.
@@ -48,4 +49,3 @@ data:
     - raspberrypi4-64
     - raspberrypi400-64
     - generic-aarch64
-version: 1.21.5
