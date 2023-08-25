@@ -1,4 +1,4 @@
-FROM n3uronhub/n3uron:v1.21.5
+FROM n3uronhub/n3uron:v1.21.6
 
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
