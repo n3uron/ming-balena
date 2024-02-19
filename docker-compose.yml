@@ -1,10 +1,10 @@
-version: '2'
+version: "2"
 
 services:
   n3uron:
     image: n3uronhub/n3uron:v1.21.7
     ports:
-      - 80:8003   # HTTP WebUI for balena
+      - 80:8003 # HTTP WebUI for balena
       - 8003:8003 # HTTP WebUI
       - 8443:8443 # HTTPS WebUI
       - 8004:8004 # HTTP WebVision
@@ -43,7 +43,7 @@ services:
     restart: always
 
   grafana:
-    image: grafana/grafana-oss:10.2.2
+    image: grafana/grafana-oss:10.2.4
     ports:
       - 3000:3000
     volumes:
