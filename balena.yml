@@ -48,4 +48,6 @@ data:
     - genericx86-64-ext
     - raspberrypi4-64
     - raspberrypi400-64
+    - raspberrypicm4-ioboard
+    - raspberrypi5
     - generic-aarch64
