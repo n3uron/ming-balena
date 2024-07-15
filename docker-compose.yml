@@ -2,7 +2,7 @@ version: "2"
 
 services:
   n3uron:
-    image: n3uronhub/n3uron:v1.21.7
+    image: n3uronhub/n3uron:v1.21.10
     ports:
       - 80:8003 # HTTP WebUI for balena
       - 8003:8003 # HTTP WebUI
@@ -26,7 +26,7 @@ services:
     restart: always
 
   telegraf:
-    image: telegraf:1.29
+    image: telegraf:1.31
     entrypoint: >
       sh -c "echo '[[outputs.influxdb_v2]]\nurls = [\"http://influxdb:8086\"]\ntoken = \"$DOCKER_INFLUXDB_INIT_ADMIN_TOKEN\"\norganization = \"N3uron\"\nbucket = \"demo\"\n[[inputs.mqtt_consumer]]\nservers = [\"tcp://mqtt:1883\"]\ntopics = [\"N3URON/BLUELAKE/\"]\ndata_format = \"influx\"' >> /etc/telegraf/telegraf.conf && telegraf --config /etc/telegraf/telegraf.conf"
     restart: always
@@ -43,7 +43,7 @@ services:
     restart: always
 
   grafana:
-    image: grafana/grafana-oss:10.2.4
+    image: grafana/grafana-oss:10.2.8
     ports:
       - 3000:3000
     volumes:
