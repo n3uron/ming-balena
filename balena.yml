@@ -1,6 +1,6 @@
 name: MING
 type: sw.application
-version: 1.21.10
+version: 1.21.11
 
 description: >-
   The MING stack is a popular combination of software technologies used for building scalable and real-time Industrial IoT data processing and visualization systems.
@@ -33,6 +33,8 @@ assets:
 data:
   applicationEnvironmentVariables:
     - HOSTNAME: gateway01
+    - ADMIN_PASSWORD: n3uron
+    - USER_PASSWORD: n3uron
     - DOCKER_INFLUXDB_INIT_USERNAME: admin
     - DOCKER_INFLUXDB_INIT_PASSWORD: n3urondemo
     - DOCKER_INFLUXDB_INIT_ORG: N3uron
